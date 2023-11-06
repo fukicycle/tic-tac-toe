@@ -12,6 +12,8 @@ namespace TicTacToe
         }
         private string _displayString = "O";
 
+        private string _result = "";
+
         private List<GridItem> _items = new List<GridItem>()
             {
                 new GridItem { Content = Guid.NewGuid().ToString(),DisplayContent = string.Empty },
@@ -30,23 +32,26 @@ namespace TicTacToe
 
         public List<GridItem> GetGridItems() { return _items; }
 
-        public string UpdateItem(GridItem item)
+        public string GetResult() { return _result; }
+
+        public void UpdateItem(GridItem item)
         {
             if (item.DisplayContent == string.Empty)
             {
                 item.DisplayContent = _displayString;
                 item.Content = _displayString;
                 _displayString = _displayString == "O" ? "X" : "O";
-                this.StateHasChanged();
                 switch (_winner.Check(_items))
                 {
                     case 1:
-                        return item.Content;
+                        _result = item.Content;
+                        break;
                     case -1:
-                        return "Draw";
+                        _result = "Draw";
+                        break;
                 }
+                this.StateHasChanged();
             }
-            return "";
         }
 
         public void Reset()
@@ -57,6 +62,7 @@ namespace TicTacToe
                 item.DisplayContent = string.Empty;
             }
             _displayString = "O";
+            _result = "";
             this.StateHasChanged();
         }
 

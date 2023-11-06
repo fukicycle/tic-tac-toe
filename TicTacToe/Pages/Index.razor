@@ -11,7 +11,7 @@
                 {
                     <div style="width: calc(100%/3); aspect-ratio: 1;padding: .5rem;">
                         <Neumorphism class="h-100 w-100">
-                            <button disabled="@(!string.IsNullOrEmpty(_result))" class="h-100 w-100 d-flex justify-content-center align-items-center" @onclick=@(() => ButtonOnClick(gridItem))>
+                            <button disabled="@(!string.IsNullOrEmpty(_gridItemService.GetResult()))" class="h-100 w-100 d-flex justify-content-center align-items-center" @onclick=@(() => _gridItemService.UpdateItem(gridItem))>
                                 <span class="fs-1">@gridItem.DisplayContent</span>
                             </button>
                         </Neumorphism>
@@ -20,31 +20,18 @@
             </div>
         </Neumorphism>
     </div>
-    @if (!string.IsNullOrEmpty(_result))
+    @if (!string.IsNullOrEmpty(_gridItemService.GetResult()))
     {
         <div style="max-width: 800px;width:100%;">
             <Neumorphism class="my-4" ShapeType="ShapeType.SINK">
-                <div class="fw-bold">Winner: @_result</div>
+                <div class="fw-bold">Winner: @_gridItemService.GetResult()</div>
             </Neumorphism>
             <Neumorphism class="my-4">
-                <button class="fw-bold" @onclick=@ResetButtonOnClick>Reset</button>
+                <button class="fw-bold" @onclick=@(() => _gridItemService.Reset())>Reset</button>
             </Neumorphism>
         </div>
     }
 </div>
 @code {
     [CascadingParameter(Name = "gridItem")] protected GridItemService _gridItemService { get; set; } = null!;
-
-    private string _result = "";
-
-    private void ButtonOnClick(GridItem gridItem)
-    {
-        _result = _gridItemService.UpdateItem(gridItem);
-    }
-
-    private void ResetButtonOnClick()
-    {
-        _result = "";
-        _gridItemService.Reset();
-    }
 }
