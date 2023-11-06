@@ -1,0 +1,31 @@
+﻿@inherits LayoutComponentBase
+@inject TicTacToe.GridItemService _gridItemService
+@implements IDisposable
+
+<PageTitle>TicTacToe</PageTitle>
+
+<CascadingValue Value="@_gridItemService" Name="gridItem">
+    <div class="page h-100">
+        <main class="h-100">
+            <article class="content px-4 h-100">
+                @Body
+            </article>
+        </main>
+    </div>
+</CascadingValue>
+@code {
+    protected override void OnInitialized()
+    {
+        _gridItemService.StateChanged += OnChatStateChanged;
+    }
+
+    void OnChatStateChanged(object sender, EventArgs e)
+    {
+        this.InvokeAsync(StateHasChanged);
+    }
+
+    void IDisposable.Dispose()
+    {
+        _gridItemService.StateChanged -= OnChatStateChanged;
+    }
+}
