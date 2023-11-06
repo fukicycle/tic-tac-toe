@@ -1,4 +1,4 @@
-{
+  {
   "iisSettings": {
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
@@ -12,6 +12,7 @@
       "commandName": "Project",
       "launchBrowser": true,
       "applicationUrl": "http://localhost:5070",
+      "launchUrl": "tic-tac-toe",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
@@ -20,6 +21,7 @@
     "IIS Express": {
       "commandName": "IISExpress",
       "launchBrowser": true,
+      "launchUrl": "tic-tac-toe",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }

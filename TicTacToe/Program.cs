@@ -22,6 +22,8 @@ if (!app.Environment.IsDevelopment())
 
 app.UseNeumorphism(BaseColor.Parse("#E0E0E0"));
 
+app.UsePathBase("/tic-tac-toe");
+
 app.UseStaticFiles();
 
 app.UseRouting();
